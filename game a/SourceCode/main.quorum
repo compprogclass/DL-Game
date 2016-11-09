@@ -1,0 +1,61 @@
+use Libraries.Game.Game
+use Libraries.Sound.Music
+use Libraries.Sound.Instrument
+use Libraries.Interface.Events.KeyboardEvent
+use Libraries.Game.InputMonitor
+use Libraries.Compute.Random
+use Libraries.Interface.Events.KeyboardListener
+/*
+
+    This is a default class for creating a game in Quorum. Note that the Main 
+    action begins by calling StartGame(), which loads a window a game can 
+    be displayed in. The action CreateGame is where the game should load any 
+    assets, like images to be displayed, frames of animation, or sounds to be
+    played. 
+*/  
+class Main is Game
+integer time = 0
+Music m
+Instrument i
+Random note
+KeyboardListener s 
+InputMonitor im 
+    /*
+        This action, Main, starts our computer program. In Quorum, programs always
+        begin from Main.
+    */
+    action Main
+        StartGame()
+    end
+
+    /*
+        This action sets up the default values for a game. For example, we might
+        use the Libraries.Game.Graphics.Drawable class to load up an image or 
+        a shape. Or, we might add a Libraries.Interface.Button for making something clickable
+        or a Libraries.Interface.TextBox for gathering user input in a game.
+    */
+    action CreateGame
+        SetScreenSize(1600,100)
+        i = m:GetInstrument(0)
+        m:SetInstrument(i)
+
+    end
+
+    /*
+        The update action is called on every "frame" of animation in a game. This
+        action should be used to do operations on items. So, for example, we 
+        might use this action to change frames of animation, to rotate items, 
+        or to make creatures jump.
+    */
+    action Update(number seconds)
+        time = time + 1
+        integer force =0 
+         force = note:RandomIntegerBetween(18,55) 
+        m:Play(force,1)
+        im:IsKeyPressed
+        if time = 10
+            Exit()  
+        end
+        m:Close()
+    end
+end
