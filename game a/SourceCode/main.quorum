@@ -18,7 +18,7 @@ integer time = 0
 Music m
 Instrument i
 Random note
-KeyboardListener s 
+KeyboardEvent s 
 InputMonitor im 
     /*
         This action, Main, starts our computer program. In Quorum, programs always
@@ -52,8 +52,11 @@ InputMonitor im
         integer force =0 
          force = note:RandomIntegerBetween(18,55) 
         m:Play(force,1)
-        im:IsKeyPressed
-        if time = 10
+        im:IsKeyPressed(s:N)           
+        if 
+            Exit()
+        end
+       if time = 10
             Exit()  
         end
 //hi
