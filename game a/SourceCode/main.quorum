@@ -21,12 +21,14 @@ Instrument i
 Random note
 KeyboardEvent s 
 InputMonitor im 
+Drawable hm
     /*
         This action, Main, starts our computer program. In Quorum, programs always
         begin from Main.
     */
     action Main
-        StartGame()
+  
+       StartGame()
     end
 
     /*
