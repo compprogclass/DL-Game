@@ -21,7 +21,7 @@ Instrument i
 Random note
 KeyboardEvent s 
 InputMonitor im 
-Drawable hm
+Drawable hm 
     /*
         This action, Main, starts our computer program. In Quorum, programs always
         begin from Main.
@@ -41,7 +41,12 @@ Drawable hm
         SetScreenSize(1600,100)
         i = m:GetInstrument(0)
         m:SetInstrument(i)
-`
+        hm:Load("human male.png")
+Add(hm)
+hm:SetSize(
+
+
+ 
     end
 
     /*
@@ -55,7 +60,7 @@ Drawable hm
         integer force =0 
          force = note:RandomIntegerBetween(18,55) 
         m:Play(force,1)
-                   
+       
         if im:IsKeyPressed(s:N) or time = 100
             Exit()
         end
