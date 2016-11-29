@@ -43,8 +43,7 @@ Drawable hm
         m:SetInstrument(i)
         hm:Load("human male.png")
 Add(hm)
-hm:SetSize(
-
+hm:SetSize(1600,500)
 
  
     end
