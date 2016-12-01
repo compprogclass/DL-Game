@@ -21,7 +21,8 @@ Instrument i
 Random note
 KeyboardEvent s 
 InputMonitor im 
-Drawable hm 
+Drawable hm
+
     /*
         This action, Main, starts our computer program. In Quorum, programs always
         begin from Main.
@@ -43,10 +44,9 @@ Drawable hm
         m:SetInstrument(i)
         hm:Load("human male.png")
 Add(hm)
-hm:SetSize(1600,500)
-
- 
-    end
+hm:SetSize(1600,600)
+hm:SetPosition(50,40)
+end
 
     /*
         The update action is called on every "frame" of animation in a game. This
@@ -59,7 +59,7 @@ hm:SetSize(1600,500)
         integer force =0 
          force = note:RandomIntegerBetween(18,55) 
         m:Play(force,1)
-       
+        if im:IsKeyPressed(s:RIGHTARROW(
         if im:IsKeyPressed(s:N) or time = 100
             Exit()
         end
