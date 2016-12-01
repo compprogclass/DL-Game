@@ -59,7 +59,9 @@ end
         integer force =0 
          force = note:RandomIntegerBetween(18,55) 
         m:Play(force,1)
-        if im:IsKeyPressed(s:RIGHTARROW(
+        if im:IsKeyPressed(s:RIGHT)
+            hm:MoveX(10)
+        end
         if im:IsKeyPressed(s:N) or time = 100
             Exit()
         end
