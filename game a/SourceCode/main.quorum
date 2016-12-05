@@ -62,6 +62,9 @@ end
         if im:IsKeyPressed(s:RIGHT)
             hm:MoveX(10)
         end
+        if im:IsKeyPressed(s:LEFT)
+            hm:MoveX(-10)        
+        end
         if im:IsKeyPressed(s:N) or time = 100
             Exit()
         end
