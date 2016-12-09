@@ -22,13 +22,15 @@ Random note
 KeyboardEvent s 
 InputMonitor im 
 Drawable hm
+Drawable sm 
+integer d = 0 
 
     /*
         This action, Main, starts our computer program. In Quorum, programs always
         begin from Main.
     */
     action Main
-  
+ SetScreenSize(600,400) 
        StartGame()
     end
 
@@ -39,13 +41,18 @@ Drawable hm
         or a Libraries.Interface.TextBox for gathering user input in a game.
     */
     action CreateGame
-        SetScreenSize(1600,100)
-        i = m:GetInstrument(0)
+               i = m:GetInstrument(0)
         m:SetInstrument(i)
         hm:Load("human male.png")
-Add(hm)
-hm:SetSize(1600,600)
-hm:SetPosition(50,40)
+Add(hm) 
+    
+Add(sm)  
+    sm:Load("samurai.jpg")  
+sm:SetSize(400,100)
+hm:SetSize(400,100)
+
+hm:SetPosition(50,40) 
+    sm:SetPosition(50,150)
 end
 
     /*
@@ -59,14 +66,49 @@ end
         integer force =0 
          force = note:RandomIntegerBetween(18,55) 
         m:Play(force,1)
+       
+        if im:IsKeyPressed(s:A)
+        d = 2
+        hm:Dispose()
+end 
+    if im:IsKeyPressed(s:S)
+    d = 1
+    sm:Dispose() 
+end 
+    
         if im:IsKeyPressed(s:RIGHT)
-            hm:MoveX(10)
-        end
+ 
+   
+        if d = 1
+        MoveRight(hm)
+elseif d = 2   
+     MoveRight(sm)
+       end 
+end
         if im:IsKeyPressed(s:LEFT)
-                hm:MoveX(-10)
+   if d = 1  
+    MoveLeft(hm) 
+    elseif d = 2
+MoveLeft(sm) 
+end
+end
                 if im:IsKeyPressed(s:UP)
-                hm:MoveY(10)
+                if d = 1 
+                MoveUp(hm) 
+                elseif d = 2
+               MoveUp(sm) 
+end 
+
+                
+end
+
                 if im:IsKeyPressed(s:DOWN)
+                if d = 1 
+                MoveDown(hm)
+                elseif d = 2 
+                MoveDown(sm)
+               hm:MoveY(-10) 
+end
 end
         if im:IsKeyPressed(s:N) or time = 100
             Exit()
@@ -77,4 +119,31 @@ end
 //hi
         m:Close()
     end
+
+action MoveRight(Drawable d) 
+    number l = d:GetX()
+    if l < 200
+    d:MoveX(10)  
+end 
+end 
+    action MoveLeft(Drawable d) 
+    number k = d:GetX() 
+    if k > 0
+d:MoveX(-10) 
+end 
+end  
+action MoveUp(Drawable d) 
+    number j = d:GetY() 
+    if j < 300 
+    d:MoveY(10) 
+end 
+end 
+    action MoveDown(Drawable d)  
+    number t = d:GetY() 
+    if t > 0 
+    d:MoveY(-10) 
+end
+end 
+    action ChangeColor
+    
 end
