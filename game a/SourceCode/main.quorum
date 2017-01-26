@@ -6,6 +6,9 @@ use Libraries.Game.InputMonitor
 use Libraries.Compute.Random
 use Libraries.Interface.Events.KeyboardListener
  use Libraries.Game.Graphics.Drawable
+use Libraries.Game.Graphics.Label 
+use Libraries.Sound.Speech
+
 /*
 
     This is a default class for creating a game in Quorum. Note that the Main 
@@ -22,15 +25,18 @@ Random note
 KeyboardEvent s 
 InputMonitor im 
 Drawable hm
-Drawable sm 
+Drawable sm
+Drawable vm 
 integer d = 0 
+Label namechoice 
+    Speech readtext
 
     /*
         This action, Main, starts our computer program. In Quorum, programs always
         begin from Main.
     */
     action Main
- SetScreenSize(600,400) 
+    SetFullScreen(true)
        StartGame()
     end
 
@@ -41,18 +47,23 @@ integer d = 0
         or a Libraries.Interface.TextBox for gathering user input in a game.
     */
     action CreateGame
-               i = m:GetInstrument(0)
+        i = m:GetInstrument(0)
         m:SetInstrument(i)
         hm:Load("human male.png")
-Add(hm) 
-    
-Add(sm)  
-    sm:Load("samurai.jpg")  
-sm:SetSize(400,100)
-hm:SetSize(400,100)
+        Add(hm) 
+        vm:Load("enemy.png") 
+        //Add(vm)
+         Add(sm)  
+        sm:Load("samurai.png")  
+sm:SetSize(200,200)
+hm:SetSize(200,150)
 
-hm:SetPosition(50,40) 
-    sm:SetPosition(50,150)
+hm:SetPosition(50,30) 
+vm:SetPosition(500,40) 
+vm:SetSize(200,155)  
+ 
+    sm:SetPosition(300,30)
+    NameChange()
 end
 
     /*
@@ -65,20 +76,24 @@ end
         time = time + 1
         integer force =0 
          force = note:RandomIntegerBetween(18,55) 
-        m:Play(force,1)
-       
+        //m:Play(force,1)
+        number guy= hm:GetCenterX()
+    number guy2 =hm:GetCenterY() 
+if guy = 500 or guy2 = 40
+Add(vm)
+end  
         if im:IsKeyPressed(s:A)
-        d = 2
+        d = 2 
+        Remove(hm)
         hm:Dispose()
 end 
     if im:IsKeyPressed(s:S)
-    d = 1
+    d = 1 
+    Remove(sm)
     sm:Dispose() 
 end 
     
         if im:IsKeyPressed(s:RIGHT)
- 
-   
         if d = 1
         MoveRight(hm)
 elseif d = 2   
@@ -107,36 +122,63 @@ end
                 MoveDown(hm)
                 elseif d = 2 
                 MoveDown(sm)
-               hm:MoveY(-10) 
+               hm:MoveY(-10)
+               end
+           number position = sm:GetY() 
+           number position2 = hm:GetY()
+               if position = 0 or position2 = 0
+                    readtext:Say("ahahahahahahah") 
+
+                    
+               end
 end
-end
-        if im:IsKeyPressed(s:N) or time = 100
+        if im:IsKeyPressed(s:X) //or time = 100
             Exit()
         end
        //if time = 10
          //   Exit()  
         //end
 //hi
-        m:Close()
+        //m:Close()
     end
 
 action MoveRight(Drawable d) 
     number l = d:GetX()
-    if l < 200
+    if l < 519
     d:MoveX(10)  
 end 
+    number there = sm:GetX() 
+    number there2 = hm:GetX()
+    r = GetScreenWidth()
+ 
+    if there =r - sm:GetWidth() or there2= r-hm:GetWidth()
+    readtext:Say("you have reached the right side of the screen")
+end
 end 
     action MoveLeft(Drawable d) 
     number k = d:GetX() 
     if k > 0
 d:MoveX(-10) 
-end 
+end     number hear = sm:GetX() 
+    number hear2 = hm:GetX()
+    if hear = 0 or hear2 = 0 
+    readtext:Say("hum you have reached the end of the screen") 
+    end
 end  
 action MoveUp(Drawable d) 
     number j = d:GetY() 
-    if j < 300 
+    if j < 800 
     d:MoveY(10) 
-end 
+    end
+    number place = sm:GetY() 
+    number place2 = hm:GetY() 
+    x = GetScreenHeight()
+    if place = x - sm:GetHeight() or place2 = x -hm:GetHeight()
+    readtext:Say("you have reached the top") 
+end
+    
+
+
 end 
     action MoveDown(Drawable d)  
     number t = d:GetY() 
@@ -144,6 +186,16 @@ end
     d:MoveY(-10) 
 end
 end 
-    action ChangeColor
+    action NameChange
     
+    readtext:Say("Create a name for your character")
+  
+    namechoice:SetText("create a name for your character") 
+    namechoice:SetSize(39)
+    namechoice:SetPosition(25,300)
+    Add(namechoice) 
+    Remove(namechoice)
+    end 
+    action inputname
 end
+end  
