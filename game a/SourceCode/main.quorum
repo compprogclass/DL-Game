@@ -134,6 +134,7 @@ end
 end
         if im:IsKeyPressed(s:X) //or time = 100
             Exit()
+            m:Close()
         end
        //if time = 10
          //   Exit()  
